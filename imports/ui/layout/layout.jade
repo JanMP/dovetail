@@ -1,0 +1,10 @@
+template(name="layout")
+  +navbar
+  +Template.dynamic(template=main)
+  +footer
+  
+template(name="footer")
+  .ui.center.aligned.container
+    // TODO:0 Set up License stuff
+    | &copy; 2016 - Jan Pilgenröder <br>
+    +yelpButton

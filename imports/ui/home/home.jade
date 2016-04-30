@@ -1,0 +1,29 @@
+template(name="home")
+  .ui.text.container.segment
+    h1.ui.header Where are you?
+    form.ui.form($b="submit:submit")
+      .field
+        label Your Location:
+        input(type="text", placeholder="enter city" $b="value:locationInput")
+  if gotBars
+    .ui.text.container.segment
+      h2.ui.header Bars around #{locationQuery}
+      .ui.relaxed.divided.selection.list
+        each bars
+          +barView
+    
+template(name="barView")
+  .item($b="click:toggleGoing")
+    if areGoing
+      .ui.right.floated.blue.label 
+        i.users.icon 
+        | #{areGoing}
+    .ui.image
+      img(src=imageUrl)
+      if imGoing
+        .ui.red.ribbon.label I'm going
+    .content
+      h3.header #{name}
+      .description
+        each line in address
+          | #{line} <br>

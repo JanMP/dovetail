@@ -19,3 +19,25 @@ ecmascript              # Enable ECMAScript2015+ syntax in app code
 
 autopublish             # Publish all data to the clients (for prototyping)
 insecure                # Allow all DB writes from clients (for prototyping)
+
+coffeescript
+markdown
+dalgard:jade
+fourseven:scss
+mdg:validated-method
+semantic:ui-css
+kadira:flow-router
+zimme:active-route
+kadira:blaze-layout
+aldeed:collection2
+aldeed:simple-schema
+dburles:collection-helpers
+#aldeed:autoform
+accounts-base
+iandouglas:accounts-ui-semantic-ui
+#accounts-ui-unstyled
+#accounts-github
+accounts-password
+meteor
+manuel:viewmodel
+meteortoys:allthings
