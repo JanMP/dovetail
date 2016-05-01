@@ -11,17 +11,22 @@ Template.home.viewmodel
   submit : (event) ->
     event.preventDefault()
     @locationQuery @locationInput()
-    Meteor.call "dovetail.getBars",
-      locationQuery : @locationQuery()
+    if Meteor.userId()
+      Meteor.call "dovetail.saveLocation",
+        locationQuery : @locationQuery()
+    else
+      window.localStorage.setItem "locationQuery", @locationQuery()
   bars : ->
     Bars.find
-      searchStrings : @locationQuery()
-  gotBars : ->
-    Bars.findOne(searchStrings : @locationQuery())?
+      searchString : @locationQuery()
+  loading : ->
+    not @templateInstance.subscriptionsReady()
   autorun : ->
-    savedQuery = Meteor.user()?.profile.locationQuery or ""
-    @locationInput savedQuery
-    @locationQuery savedQuery
+    locationQuery = Meteor.user()?.profile.locationQuery or
+    window.localStorage.getItem("locationQuery") or ""
+    @locationInput locationQuery
+    @locationQuery locationQuery
+    @templateInstance.subscribe "barsAtLocation", @locationQuery()
 
 Template.barView.viewmodel
   areGoing : ->
@@ -32,6 +37,8 @@ Template.barView.viewmodel
       yelpId : @yelpId()
     Going.findOne(selector)?
   toggleGoing : ->
-    console.log "toggleGoing", @yelpId()
-    Meteor.call "dovetail.toggleGoing",
-      yelpId : @yelpId()
+    if Meteor.userId()
+      Meteor.call "dovetail.toggleGoing",
+        yelpId : @yelpId()
+  autorun : ->
+    @templateInstance.subscribe "goingToBar", @yelpId()

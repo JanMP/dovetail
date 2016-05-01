@@ -2,6 +2,8 @@
 
 Bars = new Mongo.Collection "bars"
 Bars.schema = new SimpleSchema
+  searchString :
+    type : String
   yelpId :
     type : String
   name :
@@ -12,20 +14,9 @@ Bars.schema = new SimpleSchema
   imageUrl :
     type : String
     optional : true
-  searchStrings :
-    type : [String]
-    optional : true
-  lastCalled :
-    type : Date
+
 Bars.attachSchema Bars.schema
-# Bars.helpers
-#   goingCount : ->
-#     Going.find(yelpId : @yelpId).count()
-#   userIsGoing : ->
-#     isGoing = Going.findOne
-#       userId : Meteor.userId()
-#       yelpId : @yelpId
-#     isGoing?
+
 exports.Bars = Bars
 
 Going = new Mongo.Collection "going"
